@@ -11,6 +11,14 @@ var app = express();
 
 app.io = require('./helpers/socketIo')();
 
+// create and initialize the QUEUE MANAGER
+app.queueMan = require('./helpers/queueManager')();
+app.queueMan.initialize();
+
+// create and initialize the COUNTER MANAGER
+app.counterMan = require('./helpers/counterManager')(app.queueMan);
+app.counterMan.initialize();
+
 // view engine setup
 app.set('views', [path.join(__dirname, 'views')]);
 app.set('view engine', 'ejs');

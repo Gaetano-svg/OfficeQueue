@@ -1,1 +1,12 @@
-{}
+[
+    {
+        "typeName":"request1",
+        "typeCode":1,
+        "serviceTime":10
+    },
+    {
+        "typeName":"request2",
+        "typeCode":2,
+        "serviceTime":15
+    }
+]

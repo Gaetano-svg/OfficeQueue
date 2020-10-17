@@ -1,7 +1,7 @@
 var express = require('express');
-var router = express.Router();
+var router = express.Router();/*
 var io = require('../helpers/socketIo')();
-var queue = require('../helpers/queue')();
+var queueMan = require('../helpers/queueManager')();*/
 
 module.exports = function () {
 
