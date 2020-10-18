@@ -5,9 +5,9 @@ function createCounter (name, code, queues) {
 
     var counter = {
         
-        counterName : name,
-        counterCode : code,
-        typeQueues  : queues
+        counterName : name,     // Counter NAME
+        counterCode : code,     // Counter CODE
+        queues  : queues        // A list of QUEUE OBJECTS managed by the counter
 
     };
 
@@ -16,7 +16,7 @@ function createCounter (name, code, queues) {
     counter.getQueue = function (requestCode){
 
         // check if the requestCode is valid or not
-        var requestIndex = counter.typeQueues.findIndex((request) => {
+        var requestIndex = counter.queues.findIndex((request) => {
 
             return request.requestType === requestCode;
 
@@ -26,14 +26,21 @@ function createCounter (name, code, queues) {
         if(requestIndex === -1)
             return undefined;
 
-        return counter.typeQueues[requestIndex];
+        return counter.queues[requestIndex];
+
+    }
+
+    // return the references to all the queues managed by the counter
+    counter.getAllQueues = function () {
+
+        return counter.queues;
 
     }
 
     // return the number of queues configured for the current counter
     counter.getQueuesNumber = function (){
 
-        return counter.typeQueues.length;
+        return counter.queues.length;
 
     }
 
