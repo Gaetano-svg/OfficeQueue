@@ -69,7 +69,7 @@ module.exports = function (queueMan) {
 
         });
 
-        var counter = c (counterName, counterCode, queues);
+        var counter = c (counterName, counterCode, queues, requestTypes);
 
         // add the counter inside the manager 
         counterMan.counterList.push(counter);

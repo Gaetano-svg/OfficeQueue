@@ -1,13 +1,14 @@
 
 const { request } = require('express');
 
-function createCounter (name, code, queues) {
+function createCounter (name, code, queues, requestTypes) {
 
     var counter = {
         
-        counterName : name,     // Counter NAME
-        counterCode : code,     // Counter CODE
-        queues  : queues        // A list of QUEUE OBJECTS managed by the counter
+        counterName : name,             // Counter NAME
+        counterCode : code,             // Counter CODE
+        queues  : queues,               // A list of QUEUE OBJECTS managed by the counter
+        requestTypes : requestTypes     // A list of QUEUE TYPES CODE
 
     };
 
@@ -34,6 +35,13 @@ function createCounter (name, code, queues) {
     counter.getAllQueues = function () {
 
         return counter.queues;
+
+    }
+
+    // return all the types of requests managed by the counter
+    counter.getAllRequestTypes = function () {
+
+        return counter.requestTypes;
 
     }
 
