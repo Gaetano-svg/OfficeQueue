@@ -19,16 +19,15 @@ const Queues = (props) => {
                         <thead>
                             <tr>
                                 <th> Request type </th>
-                                <th> Front Office</th>
                                 <th> Expected waiting time </th>
                                 <th> </th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr> <th> Type 1 </th> <th>A</th> <th>15 minutes </th>  <th> <Button variant="success">Book</Button> </th> </tr>                             
-                            <tr> <th> Type 2 </th> <th>B</th> <th>10 minutes </th>  <th> <Button variant="success">Book</Button> </th> </tr> 
-                            <tr> <th> Type 3 </th> <th>C</th> <th>25 minutes </th>  <th> <Button variant="success">Book</Button> </th> </tr> 
+                            <tr> <th> Type 1 </th>  <th>15 minutes </th>  <th> <Button variant="success">Book</Button> </th> </tr>                             
+                            <tr> <th> Type 2 </th>  <th>10 minutes </th>  <th> <Button variant="success">Book</Button> </th> </tr> 
+                            <tr> <th> Type 3 </th>  <th>25 minutes </th>  <th> <Button variant="success">Book</Button> </th> </tr> 
 
                         </tbody>
                     </Table>
