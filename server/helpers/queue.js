@@ -1,8 +1,7 @@
 const { request } = require('express');
 
 function createQueue (typeName, typeCode, queueID, serviceTime) {
-    var count = 0;
-
+    
     var queue = {
         
         typeName : typeName,
@@ -10,15 +9,16 @@ function createQueue (typeName, typeCode, queueID, serviceTime) {
         queueID : queueID,                     
         serviceTime : serviceTime,
         ticketQueue : [],                           // QUEUE FOR TICKET
+        counter : 0                                 // COUNTER FOR SERVED TICKETS
 
     };
 
     // add the element inside the queue
     queue.push = function(){
 
-        counter++;
-        var el = queue.queueID+count;
-        queue.ticketQueue.push(queue.queueID+count);
+        var el = queue.queueID + queue.counter;
+        queue.ticketQueue.push(queue.queueID + queue.counter);
+        queue.counter++;
         return el;
 
     };
@@ -76,10 +76,12 @@ function createQueue (typeName, typeCode, queueID, serviceTime) {
 
     }
 
-    //reset the queue
+    // reset the queue
     queue.reset = function () {
-        count = 0;
+
+        queue.counter = 0;
         queue.ticketQueue = [];
+
     }
     
     return queue;

@@ -31,7 +31,7 @@ var _initialize = function (){
     
 // create a new queue for a specific request type
 // return a queue reference or undefined if the request type is invalid
-var _addQueue = function (typeName, typeCode, serviceTime) {
+var _addQueue = function (typeName, typeCode, queueID, serviceTime) {
 
     // check if the typeCode is valid or not
     var requestIndex = requestTypeConfiguration.findIndex((request) => {
@@ -55,7 +55,7 @@ var _addQueue = function (typeName, typeCode, serviceTime) {
         return queueMan.queueList[queueIndex];
 
     // the queue is recognized by the request type and the queue of tickets
-    var queue = cq(typeName, typeCode, serviceTime);
+    var queue = cq(typeName, typeCode, queueID, serviceTime);
 
     // add the created queue inside the list of queue
     queueMan.queueList.push(queue);
