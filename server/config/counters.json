@@ -13,5 +13,14 @@
         "requestTypes": [
                             1
                         ]
+    },
+    {
+        "counterName" : "counter3",
+        "counterCode" : 3,
+        "requestTypes": [
+                            2
+                        ]
+
     }
 ]    
+  
