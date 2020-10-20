@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();/*
 var io = require('../helpers/socketIo')();
 var queueMan = require('../helpers/queueManager')();*/
+var counterManager = require("../helpers/counterManager.js")();
 
 module.exports = function () {
 
@@ -18,8 +19,7 @@ module.exports = function () {
 
     // select the next queue to be served by a counter
     router.get('/getNextQueue', function(req,res){
-
-        let counterManager = require("../helpers/counterManager.js");
+        
         let counter = counterManager.getCounter(req.body.counterCode);
         let counter_queues = counter.getAllQueues();
 
