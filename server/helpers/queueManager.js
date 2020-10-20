@@ -1,10 +1,68 @@
 var requestTypeConfiguration = require('../config/request_types.json');
-
 var cq = require('./queue.js');
 
 var queueMan;
+var queueManInitialized = false;
 
-const { request } = require('express');
+// initialize the queue manager in order to read all the request Types
+var _initialize = function (){
+
+    try {
+
+        // iterate over request type JSON
+        requestTypeConfiguration.forEach((request) => {
+
+            _addQueue(request.typeName, request.typeCode,request.serviceTime );
+
+        })
+
+        console.log("[QUEUE MANAGER]: initialized correctly");
+
+    } catch (err) {
+
+        console.log("[QUEUE MANAGER]: an error occured during initialization -> " + err)
+        return false;
+
+    }
+
+     return true;
+
+}
+    
+// create a new queue for a specific request type
+// return a queue reference or undefined if the request type is invalid
+var _addQueue = function (typeName, typeCode, serviceTime) {
+
+    // check if the typeCode is valid or not
+    var requestIndex = requestTypeConfiguration.findIndex((request) => {
+
+        return request.typeCode === typeCode;
+
+    });
+
+    // the request type wasn't configured in the JSON file
+    if(requestIndex === -1)
+        return undefined;
+
+    // check if the queue was already configured for the typeCode received
+    var queueIndex = queueMan.queueList.findIndex((queue) => {
+
+        return queue.typeCode === typeCode;
+
+    });
+
+    if (queueIndex > -1)
+        return queueMan.queueList[queueIndex];
+
+    // the queue is recognized by the request type and the queue of tickets
+    var queue = cq(typeName, typeCode, serviceTime);
+
+    // add the created queue inside the list of queue
+    queueMan.queueList.push(queue);
+
+    return queue;
+
+}
 
 module.exports = function () {
 
@@ -13,6 +71,7 @@ module.exports = function () {
 
         queueMan = {};
         queueMan.queueList = []; // the list of queue -> one queue corresponds to on request type
+
         console.log("[QUEUE MANAGER]: created queue manager");
 
     }
@@ -25,58 +84,24 @@ module.exports = function () {
     }
 
     // get the number of queues inside the office
+    //
+    // RETURNS: 
+    // [value]  if the JSON file was filled with the request types
+    // [0]      if the JSON file is empty
+    // [-1]     if an error occured getting queuesNumber value
     queueMan.getQueuesNumber = function () {
 
-        return queueMan.queueList.length;
+        try {
 
-    }
+            return queueMan.queueList.length;
 
-    // create a new queue for a specific request type
-    // return a queue reference or undefined if the request type is invalid
-    queueMan.addQueue = function (typeName, typeCode, serviceTime) {
+        }
+        catch (err) {
 
-        // check if the typeCode is valid or not
-        var requestIndex = requestTypeConfiguration.findIndex((request) => {
+            Console.log("an error occured getting the QueuesNumber -> " + err)
+            return -1;
 
-            return request.typeCode === typeCode;
-
-        });
-
-        // the request type wasn't configured in the JSON file
-        if(requestIndex === -1)
-            return undefined;
-
-        // check if the queue was already configured for the typeCode received
-        var queueIndex = queueMan.queueList.findIndex((queue) => {
-
-            return queue.typeCode === typeCode;
-
-        });
-
-        if (queueIndex > -1)
-            return queueMan.queueList[queueIndex];
-
-        // the queue is recognized by the request type and the queue of tickets
-        var queue = cq(typeName, typeCode, serviceTime);
-
-        // add the created queue inside the list of queue
-        queueMan.queueList.push(queue);
-
-        return queue;
-
-    }
-
-    // initialize the queue manager in order to read all the request Types
-    queueMan.initialize = function (){
-
-        // iterate over request type JSON
-        requestTypeConfiguration.forEach((request) => {
-
-            queueMan.addQueue(request.typeName, request.typeCode,request.serviceTime );
-
-        })
-
-        console.log("[QUEUE MANAGER]: initialized correctly");
+        }
 
     }
 
@@ -107,6 +132,21 @@ module.exports = function () {
         else
             return undefined;
         
+    }
+
+    // check if the queue manager was initialized correctly
+    queueMan.isInitialized = function (){
+
+        return queueManInitialized;
+
+    }
+
+    // initialize the queue manager only once
+    if(!queueManInitialized){
+
+        if(_initialize())
+            queueManInitialized = true;
+
     }
 
     return queueMan;

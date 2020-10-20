@@ -13,11 +13,9 @@ app.io = require('./helpers/socketIo')();
 
 // create and initialize the QUEUE MANAGER
 app.queueMan = require('./helpers/queueManager')();
-app.queueMan.initialize();
 
 // create and initialize the COUNTER MANAGER
-app.counterMan = require('./helpers/counterManager')(app.queueMan);
-app.counterMan.initialize();
+app.counterMan = require('./helpers/counterManager')();
 
 process.on('unhandledRejection', (reason, p) => {
     console.log('Unhandled Rejection at: Promise' + p + 'reason:' +  reason);
