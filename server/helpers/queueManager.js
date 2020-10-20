@@ -12,7 +12,7 @@ var _initialize = function (){
         // iterate over request type JSON
         requestTypeConfiguration.forEach((request) => {
 
-            _addQueue(request.typeName, request.typeCode,request.serviceTime );
+            _addQueue(request.typeName, request.typeCode, request.queueID, request.serviceTime );
 
         })
 

@@ -1,20 +1,25 @@
 const { request } = require('express');
 
-function createQueue (typeName, typeCode, serviceTime) {
+function createQueue (typeName, typeCode, queueID, serviceTime) {
+    var counter = 0;
 
     var queue = {
         
         typeName : typeName,
         typeCode : typeCode,                        // REQUEST TYPE CODE
+        queueID : queueID,                     
         serviceTime : serviceTime,
         ticketQueue : [],                           // QUEUE FOR TICKET
 
     };
 
     // add the element inside the queue
-    queue.push = function(element){
+    queue.push = function(){
 
-        queue.ticketQueue.push(element);
+        counter++;
+        var el = queue.queueID+counter;
+        queue.ticketQueue.push(queue.queueID+counter);
+        return el;
 
     };
 
@@ -50,6 +55,13 @@ function createQueue (typeName, typeCode, serviceTime) {
 
     }
 
+    // get the queue identifier
+    queue.getQueueID = function () {
+
+        return queue.queueID;
+
+    }
+
     // get the request name linked to the queue
     queue.getRequestName = function () {
 
@@ -64,6 +76,11 @@ function createQueue (typeName, typeCode, serviceTime) {
 
     }
 
+    //reset the queue
+    queue.reset = function () {
+        counter = 0;
+        queue.ticketQueue = [];
+    }
     return queue;
 
 }
