@@ -7,7 +7,7 @@ var requestTypeConfiguration = require('../config/request_types.json');
 
 module.exports = function (app) {
 
-    router.use('/api/ticketUser', require('./user_selection_request.js')());
+    //router.use('/api/ticketUser', require('./user_selection_request.js')());
     router.use('/api/requestTypes', require('./request_types.js')());
     router.use('/api/counters', require('./counters.js')());
 
