@@ -8,5 +8,10 @@
         "typeName":"request2",
         "typeCode":2,
         "serviceTime":15
+    },
+    {
+        "typeName":"request3",
+        "typeCode":3,
+        "serviceTime":20 
     }
-]
+] 
