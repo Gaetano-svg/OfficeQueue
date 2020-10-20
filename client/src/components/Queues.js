@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button"
 
 const Queues = (props) => {
 //todo: replace fixed values with data from json file.
+//todo: onClick API.bookRequestType che manda al server il tipo della richiesta prenotata
     return <>
     
     

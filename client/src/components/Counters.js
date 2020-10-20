@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button"
 
 
 const Counters = (props) => {
-//todo: replace fixed values with data from json file.
+//todo: onClick API.setFreeCounter che manda al server l'id del counter free.
     return <>
     
     
