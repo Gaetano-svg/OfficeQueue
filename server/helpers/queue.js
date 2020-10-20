@@ -1,7 +1,7 @@
 const { request } = require('express');
 
 function createQueue (typeName, typeCode, queueID, serviceTime) {
-    var counter = 0;
+    var count = 0;
 
     var queue = {
         
@@ -17,8 +17,8 @@ function createQueue (typeName, typeCode, queueID, serviceTime) {
     queue.push = function(){
 
         counter++;
-        var el = queue.queueID+counter;
-        queue.ticketQueue.push(queue.queueID+counter);
+        var el = queue.queueID+count;
+        queue.ticketQueue.push(queue.queueID+count);
         return el;
 
     };
@@ -78,9 +78,10 @@ function createQueue (typeName, typeCode, queueID, serviceTime) {
 
     //reset the queue
     queue.reset = function () {
-        counter = 0;
+        count = 0;
         queue.ticketQueue = [];
     }
+    
     return queue;
 
 }
