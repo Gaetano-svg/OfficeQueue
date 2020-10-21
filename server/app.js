@@ -9,6 +9,8 @@ var index = require('./controllers/index');
 
 var app = express();
 
+app.use('/', index(app));
+
 app.io = require('./helpers/socketIo')();
 
 // create and initialize the QUEUE MANAGER

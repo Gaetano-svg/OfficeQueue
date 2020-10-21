@@ -2,9 +2,6 @@
 var router = express.Router();
 var io = require('../helpers/socketIo')();
 
-var counterConfiguration = require('../config/counters.json');
-var requestTypeConfiguration = require('../config/request_types.json');
-
 module.exports = function (app) {
 
     //router.use('/api/ticketUser', require('./user_selection_request.js')());

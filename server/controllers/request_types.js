@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var requestTypes = require("../config/request_type.json");
-var queueManager = require("../helper/queueManager.js")();
+var requestTypes = require("../config/request_types.json");
+var queueManager = require("../helpers/queueManager.js")();
 
 module.exports = function () {
 

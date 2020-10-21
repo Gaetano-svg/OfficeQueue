@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var counters = require("../config/request_type.json");
+var counters = require("../config/counters.json");
 var counterManager = require("../helpers/counterManager.js")();
 
 module.exports = function () {
