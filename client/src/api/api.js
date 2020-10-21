@@ -63,13 +63,20 @@ async function setCounterFree(idCounter) {
 
 // invio al server il tipo della richiesta che è stata prenotata da un cliente appena entrato
 async function bookRequestType(ReqType) {
+ let obj = {
+     requestTypeId : ReqType
+ };
+
     return new Promise((resolve, reject) => {
-        fetch("", {                             // url da decidere
+        fetch("/api/requestTypes/addNumberInQueue", {                             // url da decidere
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                
+            
             },
-            body: JSON.stringify(ReqType),
+            body: JSON.stringify(obj),
         }).then((response) => {
             if (response.ok) {
                 response.json().then((ReqType) => {

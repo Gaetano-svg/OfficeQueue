@@ -8,7 +8,8 @@ import Button from "react-bootstrap/Button"
 const Queues = (props) => {
 //todo: replace fixed values with data from json file.
 //todo: onClick API.bookRequestType che manda al server il tipo della richiesta prenotata
-    return <>
+   let {requestTypes,bookTicket} = props;
+   return <>
     
     
          <Card style={{width: '50rem'} }>
@@ -16,7 +17,7 @@ const Queues = (props) => {
             <Card.Body>
                 <Card.Title>Available queues</Card.Title>
                 <Card.Text>
-                    <Table striped borederd hover>
+                    <Table>
                         <thead>
                             <tr>
                                 <th> Request type </th>
@@ -26,9 +27,7 @@ const Queues = (props) => {
                         </thead>
 
                         <tbody>
-                            <tr> <th> Type 1 </th>  <th>15 minutes </th>  <th> <Button variant="success">Book</Button> </th> </tr>                             
-                            <tr> <th> Type 2 </th>  <th>10 minutes </th>  <th> <Button variant="success">Book</Button> </th> </tr> 
-                            <tr> <th> Type 3 </th>  <th>25 minutes </th>  <th> <Button variant="success">Book</Button> </th> </tr> 
+                        {requestTypes.map( vt =><QueueRow key={vt.typeCode} requestTypes={vt} bookTicket={bookTicket} />)}
 
                         </tbody>
                     </Table>
@@ -41,6 +40,22 @@ const Queues = (props) => {
     </>
 
 
+}
+
+
+function QueueRow(props){
+    let {requestTypes, bookTicket} = props;
+    return <tr><QueueElement requestTypes ={requestTypes} bookTicket={bookTicket}/></tr>
+}
+
+function QueueElement(props){
+    let {requestTypes,bookTicket} = props;
+    console.log(requestTypes);
+    return <>
+    <td>{requestTypes.typeName}</td>
+    <td>{requestTypes.typeCode}</td>
+    <td><Button onClick={() => bookTicket(requestTypes.typeCode)}> BOOK </Button></td>
+    </>
 }
 
 export default Queues;

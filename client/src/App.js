@@ -31,14 +31,25 @@ class App extends React.Component {
 
     API.getRequestTypes()
       .then((requestTypes) => {
-        console.log(requestTypes);
-        //todo: set the state for dynamic fill of the table
+        
+       this.setState({requestTypes: requestTypes});
 
       })
       .catch((err) => {
+        console.log(err);
         this.handleErrors(err);
       });
 
+  }
+
+  bookTicket = (ServiceTypeID) => {
+    API.bookRequestType(ServiceTypeID)
+    .then(() => {
+      console.log(":)");
+    })
+    .catch((err) => {
+console.log(err);
+    })
   }
 
   getExpectedWaitingTimes = () =>{
@@ -84,7 +95,7 @@ class App extends React.Component {
               <Row className="vheight-100 ">
                 <Col sm={3} className="below-nav" />
                 <Col sm={6} className="below-nav">
-                  <Queues>
+                  <Queues requestTypes = {this.state.requestTypes} bookTicket={this.bookTicket}>
 
                   </Queues>
                 </Col>
