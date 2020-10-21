@@ -20,9 +20,8 @@ module.exports = function () {
     });
 
     router.post('/addNumberInQueue',  function (req, res)  {
-        console.log("ok: "+req.body);
         if(req.body.requestTypeId){
-            
+            console.log("Received API POST /addNumberInQueue for requestType: "+ req.body.requestTypeId);
             var queue = queueManager.getQueue();
             if(!queue)
                 res.status(500).send("Error: Any queue found with this requestTypeId");
