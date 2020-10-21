@@ -44,8 +44,8 @@ class App extends React.Component {
 
   bookTicket = (ServiceTypeID) => {
     API.bookRequestType(ServiceTypeID)
-    .then(() => {
-      console.log(":)");
+    .then((id) => {
+      console.log("l'id è: "+id);
     })
     .catch((err) => {
 console.log(err);
