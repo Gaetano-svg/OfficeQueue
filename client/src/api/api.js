@@ -54,19 +54,21 @@ async function getExpectedWaitingTimes() {
 
 // invio al server l'id del counter che si è appena liberato e è pronto
 //per ricevere un nuovo cliente
-async function setCounterFree(idCounter) {
+async function nextNumber(counterId) {
+    console.log(JSON.stringify(counterId));
     return new Promise((resolve, reject) => {
-        fetch("", {                             // url da decidere
+        fetch("/api/counters/nextNumber", {                             // url da decidere
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json',
             },
-            body: JSON.stringify(idCounter),
+            body: JSON.stringify({counterId: counterId}),
         }).then((response) => {
+            
             if (response.ok) {
-                response.json().then((idCounter) => {
-                    resolve(idCounter);
-                });
+                
+                resolve(response.text());
             } else {
                 // analyze the cause of error
                 response.json()
@@ -77,6 +79,7 @@ async function setCounterFree(idCounter) {
     });
 }
 
+<<<<<<< HEAD
 // invio al server l'id del counter che si è appena liberato e è pronto
 //per ricevere un nuovo cliente
 async function nextNumber(counterId) {
@@ -104,6 +107,8 @@ async function nextNumber(counterId) {
     });
 }
 
+=======
+>>>>>>> 3e7e1805fea6a585c8614425b4f40a1e1e654f6a
 // invio al server il tipo della richiesta che è stata prenotata da un cliente appena entrato
 async function bookRequestType(ReqType) {
  let obj = {
@@ -133,5 +138,9 @@ async function bookRequestType(ReqType) {
 }
 
 
+<<<<<<< HEAD
 const API = {nextNumber,getCounters,getRequestTypes, getExpectedWaitingTimes, setCounterFree, bookRequestType};
+=======
+const API = {getCounters, getRequestTypes, getExpectedWaitingTimes, nextNumber, bookRequestType};
+>>>>>>> 3e7e1805fea6a585c8614425b4f40a1e1e654f6a
 export default API;

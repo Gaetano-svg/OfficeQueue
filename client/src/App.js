@@ -20,8 +20,11 @@ class App extends React.Component {
     super(props);
     this.state = {
       requestTypes: [],
+<<<<<<< HEAD
       ticket_number: null,
       book_success: false,
+=======
+>>>>>>> 3e7e1805fea6a585c8614425b4f40a1e1e654f6a
       counters: []
     }
 
@@ -31,6 +34,22 @@ class App extends React.Component {
 
     this.getRequestTypes();
     this.getCounters();
+<<<<<<< HEAD
+  }
+
+  getCounters = () => {
+    API.getCounters()
+      .then((counters) => {
+        this.setState({counters: counters});
+        //todo: set the state for dynamic fill of the table
+
+      })
+      .catch((err) => {
+        this.handleErrors(err);
+      });
+
+=======
+>>>>>>> 3e7e1805fea6a585c8614425b4f40a1e1e654f6a
   }
 
   getCounters = () => {
@@ -45,6 +64,7 @@ class App extends React.Component {
       });
 
   }
+
 
   getRequestTypes = () => {
 
