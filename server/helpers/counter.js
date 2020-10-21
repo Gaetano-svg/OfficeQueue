@@ -17,9 +17,9 @@ function createCounter (name, code, queues, requestTypes) {
     counter.getQueue = function (requestCode){
 
         // check if the requestCode is valid or not
-        var requestIndex = counter.queues.findIndex((request) => {
+        var requestIndex = counter.queues.findIndex((queue) => {
 
-            return request.requestType === requestCode;
+            return queue.typeCode === requestCode;
 
         });
 
