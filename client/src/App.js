@@ -80,7 +80,9 @@ console.log(err);
   }
 
   nextNumber = (idCounter) => {
-    API.nextNumber(idCounter);
+    API.nextNumber(idCounter).then((nextNumber) => {
+      this.setState({nextNumber: nextNumber});
+    })
   }
 
 
@@ -132,7 +134,7 @@ console.log(err);
               <Row className="vheight-100 ">
                 <Col sm={3} className="below-nav" />
                 <Col sm={6} className="below-nav">
-                <Counters counters={this.state.counters} nextNumber = {this.nextNumber}/>
+                <Counters counters={this.state.counters} nextNumber = {this.nextNumber} number ={this.state.nextNumber}/>
                 </Col>
                 <Col sm={3} className="below-nav" />
 
