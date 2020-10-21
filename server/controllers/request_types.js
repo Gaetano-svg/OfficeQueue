@@ -16,19 +16,20 @@ module.exports = function () {
         }
 
         res.send(tmp);
+
     });
 
     router.post('/addNumberInQueue', function (req, res) {
         if(req.body.requestTypeId){
             var queue = queueManager.getQueue();
             if(!queue)
-                res.send("Error: Any queue found with this requestTypeId");
+                res.status(500).send("Error: Any queue found with this requestTypeId");
             else{
                 res.send(queue.push())
             }
         }
         else{
-            res.send("Error: MISSING requestTypeId");
+            res.status(500).send("Error: MISSING requestTypeId");
         }
     })    
     return router;

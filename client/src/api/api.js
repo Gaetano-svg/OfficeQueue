@@ -1,7 +1,7 @@
 
 async function getRequestTypes(){
 
-    let url = ""; //todo: waiting for Giosue's Endpoints
+    let url = "/api/requestTypes"; //todo: waiting for Giosue's Endpoints
     const response = await fetch(url); 
     const requestTypesJson = await response.json(); 
 

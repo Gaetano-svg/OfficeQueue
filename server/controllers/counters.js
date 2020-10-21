@@ -22,13 +22,13 @@ module.exports = function () {
         if(req.body.counterId){
             var queue = rightQueue(req.body.counterId);
             if(!queue || !queue.size())
-                res.send("Error: Any queue found with this counterId OR all queue are empty")
+                res.status(500).send("Error: Any queue found with this counterId OR all queue are empty")
             else{
                 res.send(queue.pop());
             }
         }
         else
-            res.send("Error: MISSING counterId");
+            res.status(500).send("Error: MISSING counterId");
     })
     
     //RETURN RIGHT QUEUE WHERE POP

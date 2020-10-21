@@ -24,14 +24,14 @@ class App extends React.Component {
 
   componentDidMount() {
 
-
+    this.getRequestTypes();
   }
 
   getRequestTypes = () => {
 
     API.getRequestTypes()
       .then((requestTypes) => {
-
+        console.log(requestTypes);
         //todo: set the state for dynamic fill of the table
 
       })
