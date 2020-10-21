@@ -42,14 +42,21 @@ module.exports = function () {
         var queue =queueManager.getQueue(requestType.typeCode);
         var numperson=queue.size();
         
-        if(!numperson)
-        return 0;
-
+    
         var countersList=counterManager.getCounters().filter((c)=>(c.requestTypes.includes(requestType.typeCode)));
         var count =0;
         var numTypeReq=countersList.map((c)=>count+=c.requestTypes.length);
         WaitingTime=servTime*((numperson/(1/count))+0.5)
+        if(count==0){
+            
+            WaitingTime=-1;
+            return WaitingTime;
+        } 
+        if(!numperson)
+        return 0;
+
         return WaitingTime;
+
     };
 
     return router;

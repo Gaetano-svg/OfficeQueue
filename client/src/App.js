@@ -3,6 +3,8 @@ import "./App.css";
 import Header from "./components/Header";
 import Queues from "./components/Queues"
 import Counters from "./components/Counters"
+import Alert from "./components/Alert"
+
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -17,7 +19,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      requestTypes: []
+      requestTypes: [],
+      ticket_number: null,
+      book_success: false,
+      counters: []
     }
 
   }
@@ -25,6 +30,20 @@ class App extends React.Component {
   componentDidMount() {
 
     this.getRequestTypes();
+    this.getCounters();
+  }
+
+  getCounters = () => {
+    API.getCounters()
+      .then((counters) => {
+        this.setState({counters: counters});
+        //todo: set the state for dynamic fill of the table
+
+      })
+      .catch((err) => {
+        this.handleErrors(err);
+      });
+
   }
 
   getRequestTypes = () => {
@@ -46,6 +65,8 @@ class App extends React.Component {
     API.bookRequestType(ServiceTypeID)
     .then((id) => {
       console.log("l'id è: "+id);
+      this.setState({ ticket_number: id, book_success: true }); 
+      this.getRequestTypes();
     })
     .catch((err) => {
 console.log(err);
@@ -55,7 +76,7 @@ console.log(err);
   getExpectedWaitingTimes = () =>{
     API.getExpectedWaitingTimes()
       .then((requestTypes) => {
-          // todo: set the state for dynamic fill of the table
+          
       })
       .catch((err) => {
         this.handleErrors(err); 
@@ -63,6 +84,11 @@ console.log(err);
       );
   }
 
+  nextNumber = (idCounter) => {
+    API.nextNumber(idCounter).then((nextNumber) => {
+      this.setState({nextNumber: nextNumber});
+    })
+  }
 
 
   handleErrors(err) {
@@ -95,7 +121,8 @@ console.log(err);
               <Row className="vheight-100 ">
                 <Col sm={3} className="below-nav" />
                 <Col sm={6} className="below-nav">
-                  <Queues requestTypes = {this.state.requestTypes} bookTicket={this.bookTicket}>
+                  
+                  <Queues requestTypes = {this.state.requestTypes} bookTicket={this.bookTicket} book_success={this.state.book_success} ticket_number={this.state.ticket_number}>
 
                   </Queues>
                 </Col>
@@ -113,20 +140,13 @@ console.log(err);
               <Row className="vheight-100 ">
                 <Col sm={3} className="below-nav" />
                 <Col sm={6} className="below-nav">
-                  <Counters>
-
-                  </Counters>
+                <Counters counters={this.state.counters} nextNumber = {this.nextNumber} number ={this.state.nextNumber}/>
                 </Col>
                 <Col sm={3} className="below-nav" />
 
 
               </Row>
             </Route>
-
-
-
-
-
 
 
             <Route>
