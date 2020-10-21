@@ -12,19 +12,17 @@ return <>
  
  
  <ListGroup.Item className="p-3 list-title">
-{<h5> Number called : {props.number} </h5> } 
+{<h5 className=" p-3 mb-2 bg-white text-dark"> Number called : {props.number} </h5> } 
           </ListGroup.Item>
           {props.counters.map((count, index) => (
-            <ListGroup.Item
+            <ListGroup.Item className=" p-3 mb-2 bg-white text-dark"
               action
               key={index}
               id={index}
             
             >
-            Counter {count.counterCode} 
-             <div>
-             </div>
-             
+            Counter {count.counterCode} &nbsp;
+           
              
              <Button variant="success" type="button" onClick = {() =>{props.nextNumber(count.counterCode)}}>{'Next one'}</Button>
              

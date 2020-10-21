@@ -20,3 +20,8 @@ code {
   text-transform: uppercase;
   cursor: pointer;
 }
+
+body {
+  background-image:url('https://11tcma2eyqgmz6zyt1x6na8n-wpengine.netdna-ssl.com/wp-content/uploads/2018/01/carrier-featured.jpg');
+  background-size: cover;
+}
