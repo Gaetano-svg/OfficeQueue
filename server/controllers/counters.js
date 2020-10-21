@@ -18,7 +18,9 @@ module.exports = function () {
     });
 
     //Pop from right queue and send the number called
-    router.post('/nextNumber', function (req, res) {
+       //Pop from right queue and send the number called
+       router.post('/nextNumber', (req, res) => {
+        console.log(req.body.counterId);
         if(req.body.counterId){
             var queue = rightQueue(req.body.counterId);
             if(!queue || !queue.size())
@@ -28,8 +30,10 @@ module.exports = function () {
             }
         }
         else
+        {   
             res.status(500).send("Error: MISSING counterId");
-    })
+        }
+    });
     
     //RETURN RIGHT QUEUE WHERE POP
     function rightQueue (counterId) {

@@ -17,7 +17,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      requestTypes: []
+      requestTypes: [],
+      counters: []
     }
 
   }
@@ -25,7 +26,22 @@ class App extends React.Component {
   componentDidMount() {
 
     this.getRequestTypes();
+    this.getCounters();
   }
+
+  getCounters = () => {
+    API.getCounters()
+      .then((counters) => {
+        this.setState({counters: counters});
+        //todo: set the state for dynamic fill of the table
+
+      })
+      .catch((err) => {
+        this.handleErrors(err);
+      });
+
+  }
+
 
   getRequestTypes = () => {
 
@@ -63,6 +79,9 @@ console.log(err);
       );
   }
 
+  nextNumber = (idCounter) => {
+    API.nextNumber(idCounter);
+  }
 
 
   handleErrors(err) {
@@ -113,9 +132,7 @@ console.log(err);
               <Row className="vheight-100 ">
                 <Col sm={3} className="below-nav" />
                 <Col sm={6} className="below-nav">
-                  <Counters>
-
-                  </Counters>
+                <Counters counters={this.state.counters} nextNumber = {this.nextNumber}/>
                 </Col>
                 <Col sm={3} className="below-nav" />
 

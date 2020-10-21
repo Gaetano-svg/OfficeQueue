@@ -1,3 +1,20 @@
+async function getCounters(){
+
+    let url = "/api/counters"; //todo: waiting for Giosue's Endpoints
+    const response = await fetch(url); 
+    const countersJson = await response.json(); 
+
+    if (response.ok) {
+        
+        return countersJson;  // have to do parsing
+    }
+    else {
+        console.log("getCounters Error"); 
+        let err = {status: response.status, errObj: countersJson};
+        throw err; 
+    }
+
+}
 
 async function getRequestTypes(){
 
@@ -37,19 +54,21 @@ async function getExpectedWaitingTimes() {
 
 // invio al server l'id del counter che si è appena liberato e è pronto
 //per ricevere un nuovo cliente
-async function setCounterFree(idCounter) {
+async function nextNumber(counterId) {
+    console.log(JSON.stringify(counterId));
     return new Promise((resolve, reject) => {
-        fetch("", {                             // url da decidere
+        fetch("/api/counters/nextNumber", {                             // url da decidere
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json',
             },
-            body: JSON.stringify(idCounter),
+            body: JSON.stringify({counterId: counterId}),
         }).then((response) => {
+            
             if (response.ok) {
-                response.json().then((idCounter) => {
-                    resolve(idCounter);
-                });
+                
+                resolve(response.text());
             } else {
                 // analyze the cause of error
                 response.json()
@@ -59,7 +78,6 @@ async function setCounterFree(idCounter) {
         }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) }); // connection errors
     });
 }
-
 
 // invio al server il tipo della richiesta che è stata prenotata da un cliente appena entrato
 async function bookRequestType(ReqType) {
@@ -90,5 +108,5 @@ async function bookRequestType(ReqType) {
 }
 
 
-const API = {getRequestTypes, getExpectedWaitingTimes, setCounterFree, bookRequestType};
+const API = {getCounters, getRequestTypes, getExpectedWaitingTimes, nextNumber, bookRequestType};
 export default API;
